@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.generator.mapper.ColumnMapper">
+    <select id="selectColumn" resultType="Column">
+        select column_type,column_name
+        from information_schema.columns orm
+        where table_name = #{typeName} and table_schema= #{schemaName}
+    </select>
+</mapper>

@@ -1,0 +1,8 @@
+spring:
+  datasource:
+    url: jdbc:mysql://192.168.31.198/md_iot_safety?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true&useAffectedRows=true
+    username: ybz
+    password: ybz123
+mybatis:
+  type-aliases-package: com.yao.entity
+  mapper-locations: classpath*:mapper/**.xml
