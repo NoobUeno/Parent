@@ -2,7 +2,7 @@ package com.example.generator;
 
 import com.example.generator.mapper.ColumnMapper;
 import com.example.generator.service.testGenerator;
-import com.yao.entity.Column;
+import com.example.generator.entity.Column;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -79,12 +79,11 @@ public class test {
     @Test
     public void f4() throws TemplateException, IOException {
 
-
         HashMap<String, String> map = new HashMap<>();
         map.put("entityName","FaceNode");
         map.put("tableName","iot_face_node_info");
-        testGenerator.demo1(map);
-        testGenerator.demo2(map);
+        testGenerator.entity(map);
+        testGenerator.xml(map);
     }
 
     @Test

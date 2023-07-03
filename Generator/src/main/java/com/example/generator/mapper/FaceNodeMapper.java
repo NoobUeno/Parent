@@ -1,7 +1,7 @@
 package com.example.generator.mapper;
 
-import com.yao.entity.FaceNode;
-import com.yao.entity.Page;
+import com.example.generator.entity.FaceNode;
+import com.example.generator.entity.Page;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

@@ -1,6 +1,6 @@
 package com.example.generator.mapper;
 
-import com.yao.entity.Column;
+import com.example.generator.entity.Column;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

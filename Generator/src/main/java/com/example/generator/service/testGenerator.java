@@ -2,7 +2,7 @@ package com.example.generator.service;
 
 import com.example.generator.main;
 import com.example.generator.mapper.ColumnMapper;
-import com.yao.entity.Column;
+import com.example.generator.entity.Column;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -26,6 +26,7 @@ import java.util.*;
 @Component
 public class testGenerator {
 
+
     public void templateConfig(Map<String,Object> list,String ftlPath,String filePath) throws IOException, TemplateException {
 
         Configuration configuration = new Configuration(Configuration.VERSION_2_3_23);
@@ -38,7 +39,6 @@ public class testGenerator {
         outputStream.close();
         System.out.println("文件创建成功");
     }
-
 
     @Autowired
     private ColumnMapper mapper;
@@ -96,7 +96,7 @@ public class testGenerator {
     /*
         实体类生成
          */
-    public void demo1(Map<String,String> paramMap) throws TemplateException, IOException {
+    public void entity(Map<String,String> paramMap) throws TemplateException, IOException {
 
         Map<String,String> typeMap = new HashMap<>();
         typeMap.put("bigint,varchar,text","String");
@@ -134,7 +134,7 @@ public class testGenerator {
     /*
         mybatis映射文件生成
      */
-    public void demo2(Map<String,String> mapperParamMap) throws TemplateException, IOException {
+    public void xml(Map<String,String> mapperParamMap) throws TemplateException, IOException {
         Map<String,Object> map = new HashMap<>();
 
         String entityName = mapperParamMap.get("entityName");
@@ -202,6 +202,23 @@ public class testGenerator {
 
 
         templateConfig(map,xmlFtlPath,filePath);
+    }
+
+    @Value("${pagePrefix}")
+    private String pagePrefix;
+
+    /*
+        dao层接口生成
+     */
+    public void demo3(Map<String,String> mapperParamMap){
+        Map<String,Object> map  = new HashMap<>();
+        map.put("pagePrefix",pagePrefix);
+        String entityName = mapperParamMap.get("entityName");
+        String paramName = entityName.toLowerCase();
+        String mapperName = entityName+"Mapper";
+        map.put("mapperName",mapperName);
+        map.put("entityName",mapperParamMap.get("entityName"));
+        map.put("paramName",paramName);
     }
 
     public String selectSqLGenerate(String paramName, List<Column> columns){

@@ -1,7 +1,7 @@
 package com.yao.demo.controller;
 
 import com.alibaba.excel.EasyExcel;
-import com.yao.entity.User;
+import com.example.generator.entity.User;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

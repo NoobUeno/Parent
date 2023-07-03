@@ -1,4 +1,4 @@
-package com.yao;
+package com.example.generator;
 
 /**
  * Hello world!

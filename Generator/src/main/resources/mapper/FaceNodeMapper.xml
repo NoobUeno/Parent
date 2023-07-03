@@ -33,7 +33,7 @@
 		
     </sql>
 
-    <select id="selectByConditions" resultType="com.yao.entity.FaceNode">
+    <select id="selectByConditions" resultType="com.example.generator.entity.FaceNode">
         select
             <include refid="sqlColumn"/>
         from
@@ -310,7 +310,7 @@
         )
     </insert>
 
-    <update id="update" parameterType="com.yao.entity.FaceNode">
+    <update id="update" parameterType="com.example.generator.entity.FaceNode">
         update
             iot_face_node_info
         <set>

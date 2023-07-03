@@ -2,12 +2,9 @@ package com.yao.demo;
 
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.fastjson2.JSON;
-import com.yao.entity.Capture;
-import com.yao.entity.User;
+import com.example.generator.entity.Capture;
+import com.example.generator.entity.User;
 import org.springframework.mock.web.MockMultipartFile;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.support.StandardMultipartHttpServletRequest;
-import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import sun.misc.BASE64Decoder;
 
 import java.io.*;

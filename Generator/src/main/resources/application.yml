@@ -9,3 +9,4 @@ generator:
   xmlFilePath: src/main/resources/mapper/
   entityQuote: com.yao.entity
   mapperQuote: com.example.generator.mapper
+  pagePrefix: com.example.generator

@@ -1,4 +1,4 @@
-package com.yao.entity;
+package com.example.generator.entity;
 
 import com.alibaba.excel.annotation.ExcelProperty;
 import lombok.Data;
