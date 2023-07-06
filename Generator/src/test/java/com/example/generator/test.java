@@ -80,8 +80,8 @@ public class test {
     public void f4() throws TemplateException, IOException {
 
         HashMap<String, String> map = new HashMap<>();
-        map.put("entityName","FaceNode");
-        map.put("tableName","iot_face_node_info");
+        map.put("entityName","Indicator");
+        map.put("tableName","video_indicator_flag");
         testGenerator.entity(map);
         testGenerator.xml(map);
     }

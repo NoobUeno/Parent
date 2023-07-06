@@ -204,22 +204,22 @@ public class testGenerator {
         templateConfig(map,xmlFtlPath,filePath);
     }
 
-    @Value("${pagePrefix}")
-    private String pagePrefix;
-
-    /*
-        dao层接口生成
-     */
-    public void demo3(Map<String,String> mapperParamMap){
-        Map<String,Object> map  = new HashMap<>();
-        map.put("pagePrefix",pagePrefix);
-        String entityName = mapperParamMap.get("entityName");
-        String paramName = entityName.toLowerCase();
-        String mapperName = entityName+"Mapper";
-        map.put("mapperName",mapperName);
-        map.put("entityName",mapperParamMap.get("entityName"));
-        map.put("paramName",paramName);
-    }
+//    @Value("${pagePrefix}")
+//    private String pagePrefix;
+//
+//    /*
+//        dao层接口生成
+//     */
+//    public void demo3(Map<String,String> mapperParamMap){
+//        Map<String,Object> map  = new HashMap<>();
+//        map.put("pagePrefix",pagePrefix);
+//        String entityName = mapperParamMap.get("entityName");
+//        String paramName = entityName.toLowerCase();
+//        String mapperName = entityName+"Mapper";
+//        map.put("mapperName",mapperName);
+//        map.put("entityName",mapperParamMap.get("entityName"));
+//        map.put("paramName",paramName);
+//    }
 
     public String selectSqLGenerate(String paramName, List<Column> columns){
         StringBuilder sb = new StringBuilder();

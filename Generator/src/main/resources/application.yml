@@ -5,8 +5,8 @@ generator:
   dataBaseName: md_iot_safety
   entityFtlPath: /com/example/generator/ftl/demo1.ftl
   xmlFtlPath: /com/example/generator/ftl/demo2.ftl
-  entityFilePath: C:\Users\Ueno\IdeaProjects\Parent\Common\src\main\java\com\yao\entity\
+  entityFilePath: C:\Users\Ueno\IdeaProjects\Parent\Common\src\main\java\com\example\generator\entity\
   xmlFilePath: src/main/resources/mapper/
-  entityQuote: com.yao.entity
+  entityQuote: com.example.generator.entity
   mapperQuote: com.example.generator.mapper
   pagePrefix: com.example.generator
