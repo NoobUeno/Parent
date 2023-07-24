@@ -1,4 +1,4 @@
-package com.yao.entity;
+package com.example.generator.entity;
 
 import lombok.Data;
 import java.util.Date;

@@ -99,7 +99,7 @@ public class testGenerator {
     public void entity(Map<String,String> paramMap) throws TemplateException, IOException {
 
         Map<String,String> typeMap = new HashMap<>();
-        typeMap.put("bigint,varchar,text","String");
+        typeMap.put("bigint,varchar,text,longtext","String");
         typeMap.put("int,integer","Integer");
         typeMap.put("double","Double");
         typeMap.put("timestamp,datetime,date,time","Date");
@@ -148,7 +148,7 @@ public class testGenerator {
         map.put("mapperQuote",mapperQuote);
 
         Map<String,String> typeMap = new HashMap<>();
-        typeMap.put("bigint,varchar,text","String");
+        typeMap.put("bigint,varchar,text,longtext","String");
         typeMap.put("int,integer","Integer");
         typeMap.put("double","Double");
         typeMap.put("timestamp,datetime,date,time","Date");

@@ -2,6 +2,7 @@ package com.example.generator.entity;
 
 import com.alibaba.excel.annotation.ExcelProperty;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @Entity: User
@@ -11,6 +12,7 @@ import lombok.Data;
  * @Description：<描述>
  **/
 @Data
+@NoArgsConstructor
 public class User {
     @ExcelProperty("ID")
     private String id;
@@ -18,4 +20,20 @@ public class User {
     private String username;
     @ExcelProperty("密码")
     private String password;
+
+
+    public User(String id, String username, String password) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id='" + id + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
 }

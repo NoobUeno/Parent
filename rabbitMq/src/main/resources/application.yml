@@ -6,6 +6,11 @@ spring:
     password: 123
     publisher-confirm-type: correlated
     publisher-returns: true
+    template:
+       mandatory: true
+    listener:
+     simple:
+        acknowledge-mode: manual
 server:
     port: 8062
 

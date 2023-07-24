@@ -1,10 +1,12 @@
 package com.yao.demo.controller;
 
 import com.alibaba.excel.EasyExcel;
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONObject;
+import com.example.generator.entity.Page;
+import com.example.generator.entity.TestBo;
 import com.example.generator.entity.User;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
@@ -25,7 +27,7 @@ import java.util.List;
 @RequestMapping("/test")
 public class testController {
     @GetMapping
-    public void test1(HttpServletResponse response){
+    public String test1(HttpServletResponse response,@RequestBody JSONObject object){
         System.out.println(this.getClass().getResource("/"));
 
         List<User> list = new ArrayList<User>();
@@ -63,6 +65,7 @@ public class testController {
                 throw new RuntimeException(e);
             }
         }
+    return "{\"id\":1}";
     }
 
     public void exportExcel(List resultList,HttpServletResponse response,Class clazz,String fileName){
@@ -91,6 +94,14 @@ public class testController {
                 throw new RuntimeException(e);
             }
         }
+    }
+
+    @PostMapping
+    public void test2(@RequestBody JSONObject o){
+        List<Page> pages = o.getList("pages", Page.class);
+
+        System.out.println(JSON.toJSONString(pages));
+
     }
 }
 

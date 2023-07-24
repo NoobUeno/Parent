@@ -8,6 +8,8 @@
         <option value="$PROJECT_DIR$/demo/pom.xml" />
         <option value="$PROJECT_DIR$/Generator/pom.xml" />
         <option value="$PROJECT_DIR$/WebSocket/pom.xml" />
+        <option value="$PROJECT_DIR$/rabbitMq/pom.xml" />
+        <option value="$PROJECT_DIR$/core/pom.xml" />
       </list>
     </option>
   </component>

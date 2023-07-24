@@ -16,9 +16,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.nio.charset.Charset;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @Entity: test
@@ -78,18 +76,27 @@ public class test {
 
     @Test
     public void f4() throws TemplateException, IOException {
-
-        HashMap<String, String> map = new HashMap<>();
-        map.put("entityName","Indicator");
-        map.put("tableName","video_indicator_flag");
-        testGenerator.entity(map);
-        testGenerator.xml(map);
+        try {
+            HashMap<String, String> map = new HashMap<>();
+            map.put("entityName","FaceModelComparison");
+            map.put("tableName","face_model_comparison");
+            testGenerator.entity(map);
+            testGenerator.xml(map);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Test
     public void f5(){
         String a = "abcdefg";
-        String s = a.substring(0,1).toUpperCase() + a.substring(1);
-        System.out.println(s);
+        List<String> as = new ArrayList<>();
+        Collections.addAll(as,a,a,a,a);
+        for (String b: as
+             ) {
+            b = "1";
+        }
+        System.out.println(as);
     }
+
 }
