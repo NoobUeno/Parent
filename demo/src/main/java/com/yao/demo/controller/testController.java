@@ -103,5 +103,10 @@ public class testController {
         System.out.println(JSON.toJSONString(pages));
 
     }
+
+    @GetMapping
+    public void test3(String id){
+        System.out.println("id="+id);
+    }
 }
 

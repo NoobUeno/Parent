@@ -20,10 +20,12 @@ class RabbitMqApplicationTests {
     }
 
     @Test
-    void f1(){
-        String msg = "{\"areaCode\":\"HD_123\",\"autoStatus\":0,\"deviceCode\":\"UPCUA-0001\",\"runningStatus\":0}";
+    void f1() throws InterruptedException {
+//        String msg = "{\"areaCode\":\"HD_123\",\"autoStatus\":0,\"deviceCode\":\"UPCUA-0001\",\"runningStatus\":0}";
+        String msg = "{\"areaCode\":\"HD_123\",\"autoStatus\":0,\"deviceCode\":\"OOOOOOO9\",\"runningStatus\":0}";
         String receiver = "opcuaQueue";
         while(true){
+            Thread.sleep(3000);
             amqpTemplate.convertAndSend(receiver,msg);
         }
     }
