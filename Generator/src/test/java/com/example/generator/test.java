@@ -78,8 +78,8 @@ public class test {
     public void f4() throws TemplateException, IOException {
         try {
             HashMap<String, String> map = new HashMap<>();
-            map.put("entityName","FaceModelComparison");
-            map.put("tableName","face_model_comparison");
+            map.put("entityName","NodeInfo");
+            map.put("tableName","iot_node_info");
             testGenerator.entity(map);
             testGenerator.xml(map);
         } catch (Exception e) {
@@ -89,14 +89,17 @@ public class test {
 
     @Test
     public void f5(){
-        String a = "abcdefg";
-        List<String> as = new ArrayList<>();
-        Collections.addAll(as,a,a,a,a);
-        for (String b: as
-             ) {
-            b = "1";
-        }
+        String a = "UserName";
+        String as = a.substring(0,1).toLowerCase()+a.substring(1);
         System.out.println(as);
+    }
+
+    @Test
+    public void f6(){
+        String s = "123123,";
+        System.out.println(s.lastIndexOf(","));
+        String substring = s.substring(0, s.length());
+        System.out.println(substring);
     }
 
 }

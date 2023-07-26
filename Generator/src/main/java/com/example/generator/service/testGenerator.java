@@ -40,6 +40,18 @@ public class testGenerator {
         System.out.println("文件创建成功");
     }
 
+    public void start(Map<String,String> paramMap){
+        try {
+            String entityName = paramMap.get("entityName");
+            String camelCaseEntityName = entityName.substring(0,1).toLowerCase()+entityName.substring(1);
+            paramMap.put("camelCaseEntity",camelCaseEntityName);
+            entity(paramMap);
+            xml(paramMap);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     @Autowired
     private ColumnMapper mapper;
 
@@ -172,12 +184,20 @@ public class testGenerator {
                     property.setColumn_name(column.getColumn_name());
                     property.setColumn_type(typeMap.get(key));
                     columns.add(property);
-                    sqlColumn.append(column.getColumn_name()).append(",\n").append("\t\t");
+                    sqlColumn.append(column.getColumn_name())
+                            .append(",\n")
+                            .append("\t\t");
                     break;
                 }
             }
+
+
         }
-        map.put("sqlColumn",sqlColumn.toString());
+        String sql;
+        if (sqlColumn.lastIndexOf(",\n\t\t") == sqlColumn.length()-4){
+            sql = sqlColumn.substring(0,sqlColumn.length()-4);
+        }else sql = sqlColumn.toString();
+        map.put("sqlColumn",sql);
 
 
         String selectSql = selectSqLGenerate(paramName, columns);
@@ -206,20 +226,21 @@ public class testGenerator {
 
 //    @Value("${pagePrefix}")
 //    private String pagePrefix;
-//
-//    /*
-//        dao层接口生成
-//     */
-//    public void demo3(Map<String,String> mapperParamMap){
-//        Map<String,Object> map  = new HashMap<>();
+
+    /*
+        dao层接口生成
+     */
+    public void demo3(Map<String,String> mapperParamMap){
+        Map<String,Object> map  = new HashMap<>();
 //        map.put("pagePrefix",pagePrefix);
-//        String entityName = mapperParamMap.get("entityName");
-//        String paramName = entityName.toLowerCase();
-//        String mapperName = entityName+"Mapper";
-//        map.put("mapperName",mapperName);
-//        map.put("entityName",mapperParamMap.get("entityName"));
-//        map.put("paramName",paramName);
-//    }
+        String entityName = mapperParamMap.get("entityName");
+        String paramName = entityName.toLowerCase();
+        String mapperName = entityName+"Mapper";
+        map.put("mapperName",mapperName);
+        map.put("entityName",entityName);
+//        map.put("camelCase",)
+        map.put("paramName",paramName);
+    }
 
     public String selectSqLGenerate(String paramName, List<Column> columns){
         StringBuilder sb = new StringBuilder();
@@ -240,9 +261,17 @@ public class testGenerator {
                         .append("\t")
                         .append("\t")
                         .append("\t")
-                        .append(" and ")
-                        .append(column.getColumn_name()).append(" = #{").append(paramName)
-                        .append(".").append(column.getColumn_name()).append("}").append("\n")
+                        .append(" and ");
+                        if(column.getColumn_name().contains("name") || column.getColumn_name().contains("Name")){
+                            sb.append(column.getColumn_name()).append(" like concat('%', #{").append(paramName)
+                                    .append(".").append(column.getColumn_name()).append("}")
+                                    .append(",'%')");
+                        }else {
+                            sb.append(column.getColumn_name()).append(" = #{").append(paramName)
+                                    .append(".").append(column.getColumn_name()).append("}");
+                        }
+                        sb
+                        .append("\n")
                         .append("\t")
                         .append("\t")
                         .append("\t")
@@ -282,6 +311,7 @@ public class testGenerator {
         StringBuilder firstHalfSql = new StringBuilder();
         for (Column column: columns
         ) {
+            if(column.getColumn_name().equals("id")) continue;
             if (column.getColumn_type().equals("String")){
                 firstHalfSql
                         .append("\t")
@@ -333,6 +363,7 @@ public class testGenerator {
         StringBuilder lowerHalfSql = new StringBuilder();
         for (Column column: columns
         ) {
+            if(column.getColumn_name().equals("id")) continue;
             if (column.getColumn_type().equals("String")){
                 lowerHalfSql
                         .append("\t")
@@ -393,6 +424,7 @@ public class testGenerator {
         StringBuilder sb = new StringBuilder();
         for (Column column: columns
         ) {
+            if(column.getColumn_name().equals("id")) continue;
             if (column.getColumn_type().equals("String")){
                 sb
                         .append("\t")

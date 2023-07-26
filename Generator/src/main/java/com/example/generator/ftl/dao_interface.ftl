@@ -9,7 +9,7 @@ import java.util.List;
 public interface FaceNodeMapper {
     List<${entityName}> selectByConditions(@Param("faceNode") ${entityName} ${}, @Param("page") Page page);
 
-    int add(FaceNode faceNode);
+    int insert(FaceNode faceNode);
 
     int update(FaceNode faceNode);
 

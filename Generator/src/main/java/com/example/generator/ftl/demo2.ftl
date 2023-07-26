@@ -36,7 +36,7 @@ ${lowerHalfSql}
         )
     </insert>
 
-    <update id="update" parameterType="${entityQuote}.${entityName}">
+    <update id="update"">
         update
             ${tableName}
         <set>
