@@ -1,12 +1,22 @@
 spring:
   profiles:
-    active: prod
+    active: dev-iot
 generator:
+#  数据库名
   dataBaseName: md_iot_safety
-  entityFtlPath: /com/example/generator/ftl/demo1.ftl
-  xmlFtlPath: /com/example/generator/ftl/demo2.ftl
+#  包路径引用
+  pagePrefixQuoted: com.example.generator
+#  相对包路径
+  pagePrefixPath: /com/example/generator
+#  实体类模板路径
+  entityFtlPath: ${generator.pagePrefixPath}/ftl/demo1.ftl
+#  实体类绝对路径
   entityFilePath: C:\Users\Ueno\IdeaProjects\Parent\Common\src\main\java\com\example\generator\entity\
+#实体类存放引用
+  entityQuote: ${generator.pagePrefixQuoted}.entity
+#  MybatisXml文件路径
+  xmlFtlPath: ${generator.pagePrefixPath}/ftl/demo2.ftl
+#  MybatisXml文件相对路径
   xmlFilePath: src/main/resources/mapper/
-  entityQuote: com.example.generator.entity
-  mapperQuote: com.example.generator.mapper
-  pagePrefix: com.example.generator
+# dao层文件接口存放引用
+  mapperQuote: ${generator.pagePrefixQuoted}.mapper

@@ -80,8 +80,9 @@ public class test {
             HashMap<String, String> map = new HashMap<>();
             map.put("entityName","NodeInfo");
             map.put("tableName","iot_node_info");
-            testGenerator.entity(map);
-            testGenerator.xml(map);
+//            testGenerator.entity(map);
+//            testGenerator.xml(map);
+            testGenerator.start(map);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

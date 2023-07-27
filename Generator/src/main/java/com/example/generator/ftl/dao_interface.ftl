@@ -7,11 +7,11 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 public interface FaceNodeMapper {
-    List<${entityName}> selectByConditions(@Param("faceNode") ${entityName} ${}, @Param("page") Page page);
+    List<${entityName}> selectByConditions(@Param("${entityName}") ${camelCaseEntity}, @Param("page") Page page);
 
-    int insert(FaceNode faceNode);
+    int insert(${entityName} ${entityName});
 
-    int update(FaceNode faceNode);
+    int update(${entityName} ${entityName});
 
     int delete(String id);
 

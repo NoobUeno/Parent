@@ -20,7 +20,7 @@ ${selectDynamicSql}
         ${pageSql}
     </select>
 
-    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.List">
         insert into
             ${tableName}
         (
@@ -29,14 +29,16 @@ ${firstHalfSql}
         </trim>
         )
         values
-        (
-        <trim suffixOverrides=",">
-${lowerHalfSql}
-        </trim>
-        )
+        <foreach collection="list" item="item" separator=",">
+            (
+            <trim suffixOverrides=",">
+    ${lowerHalfSql}
+            </trim>
+            )
+        </foreach>
     </insert>
 
-    <update id="update"">
+    <update id="update">
         update
             ${tableName}
         <set>

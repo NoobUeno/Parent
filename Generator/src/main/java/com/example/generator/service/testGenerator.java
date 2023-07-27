@@ -223,16 +223,16 @@ public class testGenerator {
 
         templateConfig(map,xmlFtlPath,filePath);
     }
-
-//    @Value("${pagePrefix}")
-//    private String pagePrefix;
+    //包引用
+    @Value("${generator.pagePrefixQuoted}")
+    private String pagePrefix;
 
     /*
         dao层接口生成
      */
     public void demo3(Map<String,String> mapperParamMap){
         Map<String,Object> map  = new HashMap<>();
-//        map.put("pagePrefix",pagePrefix);
+        map.put("pagePrefix",pagePrefix);
         String entityName = mapperParamMap.get("entityName");
         String paramName = entityName.toLowerCase();
         String mapperName = entityName+"Mapper";
@@ -311,7 +311,8 @@ public class testGenerator {
         StringBuilder firstHalfSql = new StringBuilder();
         for (Column column: columns
         ) {
-            if(column.getColumn_name().equals("id")) continue;
+            String columnName = column.getColumn_name();
+            if(columnName.equals("id") ||columnName.equals("mtime") || columnName.equals("update_time")) continue;
             if (column.getColumn_type().equals("String")){
                 firstHalfSql
                         .append("\t")
@@ -319,15 +320,15 @@ public class testGenerator {
                         .append("\t")
                         .append("\t")
                         .append("<if test=\"")
-                        .append(column.getColumn_name()).append(" != null and ")
-                        .append(column.getColumn_name())
+                        .append(columnName).append(" != null and ")
+                        .append(columnName)
                         .append(" != ''\">").append("\n")
                         .append("\t")
                         .append("\t")
                         .append("\t")
                         .append("\t")
                         .append("\t")
-                        .append(column.getColumn_name())
+                        .append(columnName)
                         .append(",")
                         .append("\n")
                         .append("\t")
@@ -337,25 +338,36 @@ public class testGenerator {
                         .append("</if>")
                         .append("\n");
             }else {
-                firstHalfSql.append("\t")
+                firstHalfSql
                         .append("\t")
                         .append("\t")
                         .append("\t")
-                        .append("<if test=\"")
-                        .append(column.getColumn_name()).append(" != null\">")
-                        .append("\n")
-                        .append("\t")
-                        .append("\t")
-                        .append("\t")
-                        .append("\t")
-                        .append("\t")
-                        .append(column.getColumn_name()).append(",")
-                        .append("\n")
-                        .append("\t")
-                        .append("\t")
-                        .append("\t")
-                        .append("\t")
-                        .append("</if>")
+                        .append("\t");
+                if(columnName.equals("create_time") || columnName.equals("update_time")
+                        || columnName.equals("atime") || columnName.equals("mtime")){
+                    firstHalfSql
+                            .append("\t")
+                            .append(columnName)
+                            .append(",");
+                }else {
+                    firstHalfSql
+                            .append("<if test=\"")
+                            .append(columnName).append(" != null\">")
+                            .append("\n")
+                            .append("\t")
+                            .append("\t")
+                            .append("\t")
+                            .append("\t")
+                            .append("\t")
+                            .append(columnName).append(",")
+                            .append("\n")
+                            .append("\t")
+                            .append("\t")
+                            .append("\t")
+                            .append("\t")
+                            .append("</if>");
+                }
+                        firstHalfSql
                         .append("\n");
             }
         }
@@ -363,16 +375,17 @@ public class testGenerator {
         StringBuilder lowerHalfSql = new StringBuilder();
         for (Column column: columns
         ) {
-            if(column.getColumn_name().equals("id")) continue;
-            if (column.getColumn_type().equals("String")){
+            String columnName = column.getColumn_name();
+            if(columnName.equals("id") ||columnName.equals("mtime") || columnName.equals("update_time")) continue;
+            if (columnName.equals("String")){
                 lowerHalfSql
                         .append("\t")
                         .append("\t")
                         .append("\t")
                         .append("\t")
                         .append("<if test=\"")
-                        .append(column.getColumn_name()).append(" != null and ")
-                        .append(column.getColumn_name())
+                        .append(columnName).append(" != null and ")
+                        .append(columnName)
                         .append(" != ''\">").append("\n")
                         .append("\t")
                         .append("\t")
@@ -380,7 +393,9 @@ public class testGenerator {
                         .append("\t")
                         .append("\t")
                         .append(" #{")
-                        .append(column.getColumn_name()).append("},").append("\n")
+                        .append("item.")
+                        .append(columnName).append("},").append("\n")
+
                         .append("\t")
                         .append("\t")
                         .append("\t")
@@ -391,22 +406,31 @@ public class testGenerator {
                 lowerHalfSql.append("\t")
                         .append("\t")
                         .append("\t")
-                        .append("\t")
-                        .append("<if test=\"")
-                        .append(column.getColumn_name()).append(" != null\">")
-                        .append("\n")
-                        .append("\t")
-                        .append("\t")
-                        .append("\t")
-                        .append("\t")
-                        .append("\t")
-                        .append(" #{")
-                        .append(column.getColumn_name()).append("},").append("\n")
-                        .append("\t")
-                        .append("\t")
-                        .append("\t")
-                        .append("\t")
-                        .append("</if>")
+                        .append("\t");
+                if(columnName.equals("create_time") || columnName.equals("update_time")
+                        || columnName.equals("atime") || columnName.equals("mtime")){
+                    lowerHalfSql
+                            .append("\t")
+                            .append("now(),");
+                }else {
+                    lowerHalfSql
+                            .append("<if test=\"")
+                            .append(column.getColumn_name()).append(" != null\">")
+                            .append("\n")
+                            .append("\t")
+                            .append("\t")
+                            .append("\t")
+                            .append("\t")
+                            .append("\t")
+                            .append(" #{")
+                            .append(column.getColumn_name()).append("},").append("\n")
+                            .append("\t")
+                            .append("\t")
+                            .append("\t")
+                            .append("\t")
+                            .append("</if>");
+                }
+                lowerHalfSql
                         .append("\n");
             }
         }
@@ -424,7 +448,9 @@ public class testGenerator {
         StringBuilder sb = new StringBuilder();
         for (Column column: columns
         ) {
-            if(column.getColumn_name().equals("id")) continue;
+            String columnName = column.getColumn_name();
+
+            if(columnName.equals("id") || columnName.equals("atime") || columnName.equals("create_time")) continue;
             if (column.getColumn_type().equals("String")){
                 sb
                         .append("\t")
@@ -432,17 +458,19 @@ public class testGenerator {
                         .append("\t")
                         .append("\t")
                         .append("<if test=\"")
-                        .append(column.getColumn_name()).append(" != null and ")
-                        .append(column.getColumn_name())
+                        .append(columnName).append(" != null and ")
+                        .append(columnName)
                         .append(" != ''\">").append("\n")
                         .append("\t")
                         .append("\t")
                         .append("\t")
                         .append("\t")
                         .append("\t")
-                        .append(column.getColumn_name())
+                        .append(columnName)
                         .append(" = #{")
-                        .append(column.getColumn_name()).append("},").append("\n")
+                        .append(column.getColumn_name()).append("},")
+
+                        .append("\n")
                         .append("\t")
                         .append("\t")
                         .append("\t")
@@ -462,9 +490,18 @@ public class testGenerator {
                         .append("\t")
                         .append("\t")
                         .append("\t")
-                        .append(column.getColumn_name())
+                        .append(column.getColumn_name());
+                if (columnName.equals("mtime") || columnName.equals("update_time") ) {
+                    sb
+                            .append(" = now(),");
+                }else
+                {
+                sb
                         .append(" = #{")
-                        .append(column.getColumn_name()).append("},").append("\n")
+                        .append(column.getColumn_name()).append("},");
+                }
+                sb
+                        .append("\n")
                         .append("\t")
                         .append("\t")
                         .append("\t")
