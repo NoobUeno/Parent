@@ -4,19 +4,27 @@ spring:
 generator:
 #  数据库名
   dataBaseName: md_iot_safety
-#  包路径引用
-  pagePrefixQuoted: com.example.generator
+#
+  projectPath: C:\Users\Ueno\IdeaProjects\Parent\
+#  当前项目包路径引用
+  generator_pagePrefix_quoted: com.yao.generator
+#  基类项目包路径引用
+  common_pagePrefix_quoted: com.yao.common
 #  相对包路径
-  pagePrefixPath: /com/example/generator
+  generator_pagePrefix_path: /com/yao/generator
 #  实体类模板路径
-  entityFtlPath: ${generator.pagePrefixPath}/ftl/demo1.ftl
+  entity_ftlPath: ${generator.generator_pagePrefix_path}/ftl/demo1.ftl
 #  实体类绝对路径
-  entityFilePath: C:\Users\Ueno\IdeaProjects\Parent\Common\src\main\java\com\example\generator\entity\
+  entity_filePath: ${generator.projectPath}\Common\src\main\java\com\yao\common\entity\
 #实体类存放引用
-  entityQuote: ${generator.pagePrefixQuoted}.entity
+  entity_quote: ${generator.common_pagePrefix_quoted}.entity
 #  MybatisXml文件路径
-  xmlFtlPath: ${generator.pagePrefixPath}/ftl/demo2.ftl
+  xml_ftlPath: ${generator.generator_pagePrefix_path}/ftl/demo2.ftl
 #  MybatisXml文件相对路径
-  xmlFilePath: src/main/resources/mapper/
+  xml_filePath: src/main/resources/mapper/
 # dao层文件接口存放引用
-  mapperQuote: ${generator.pagePrefixQuoted}.mapper
+  mapper_quote: ${generator.generator_pagePrefix_quoted}.mapper
+    #  MybatisXml文件路径
+  mapper_ftlPath: ${generator.generator_pagePrefix_path}/ftl/dao_interface.ftl
+    #  MybatisXml文件路径
+  mapper_filePath: ${generator.projectPath}\Generator\src\main\java\com\yao\generator\mapper\

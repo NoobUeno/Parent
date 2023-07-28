@@ -3,9 +3,8 @@ package com.yao.demo.controller;
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
-import com.example.generator.entity.Page;
-import com.example.generator.entity.TestBo;
-import com.example.generator.entity.User;
+import com.yao.common.entity.Page;
+import com.yao.common.entity.User;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;

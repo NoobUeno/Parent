@@ -2,11 +2,8 @@ package com.yao.demo;
 
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
-import com.example.generator.entity.Page;
-import com.example.generator.entity.TestBo;
-import com.example.generator.entity.User;
+import com.yao.common.entity.User;
 import com.yao.demo.server.HttpClient;
-import com.yao.demo.server.MyTimer;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +12,6 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
