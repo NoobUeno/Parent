@@ -185,7 +185,6 @@
         </trim>
         )
         values
-        <foreach collection="list" item="item" separator=",">
             (
             <trim suffixOverrides=",">
     				<if test="name != null">
@@ -251,6 +250,102 @@
 				</if>
 
             </trim>
+            )
+    </insert>
+
+    <insert id="insertList" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.List">
+        insert into
+        iot_node_info
+        (
+            				name,				
+
+				device_code,				
+
+				iot_node_type,				
+
+				iot_protocal_category,				
+
+				seq,				
+
+				scene_id,				
+
+				delete_flag,				
+
+				iot_node_status,				
+
+				template_id,				
+
+				img_id,				
+
+				dis_img,				
+
+				maintenance_time,				
+
+				lonLat,				
+
+				infos,				
+
+				frequency,				
+
+				aid,				
+
+					atime,
+
+				mid,				
+
+				visualcode,				
+
+				address,				
+
+				qr_code,				
+
+
+        )
+        values
+        <foreach collection="list" item="item" separator=",">
+            (
+                				 #{name},
+				
+				 #{device_code},
+				
+				 #{iot_node_type},
+				
+				 #{iot_protocal_category},
+				
+				 #{seq},
+				
+				 #{scene_id},
+				
+				 #{delete_flag},
+				
+				 #{iot_node_status},
+				
+				 #{template_id},
+				
+				 #{img_id},
+				
+				 #{dis_img},
+				
+				 #{maintenance_time},
+				
+				 #{lonLat},
+				
+				 #{infos},
+				
+				 #{frequency},
+				
+				 #{aid},
+				
+					now(),
+				 #{mid},
+				
+				 #{visualcode},
+				
+				 #{address},
+				
+				 #{qr_code},
+				
+
             )
         </foreach>
     </insert>

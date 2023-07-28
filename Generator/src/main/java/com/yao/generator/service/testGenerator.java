@@ -185,8 +185,6 @@ public class testGenerator {
         typeMap.put("double","Double");
         typeMap.put("timestamp,datetime,date,time","Date");
 
-
-
         List<Column> oldColumns = mapper.selectColumn(mapperParamMap.get("tableName"), databaseName);
         List<Column> columns = new ArrayList<>();
 
@@ -211,14 +209,12 @@ public class testGenerator {
                 }
             }
 
-
         }
         String sql;
         if (sqlColumn.lastIndexOf(",\n\t\t") == sqlColumn.length()-4){
             sql = sqlColumn.substring(0,sqlColumn.length()-4);
         }else sql = sqlColumn.toString();
         map.put("sqlColumn",sql);
-
 
         String selectSql = selectSqLGenerate(paramName, columns);
         map.put("selectDynamicSql",selectSql);
@@ -231,18 +227,18 @@ public class testGenerator {
         List<String> strings = insertStringGenerate(paramName, columns);
         map.put("firstHalfSql",strings.get(0));
         map.put("lowerHalfSql",strings.get(1));
+        map.put("batchFirstHalfSql",strings.get(2));
+        map.put("batchLowerHalfSql",strings.get(3));
 
         String updateSql = updateSqlGenerate(paramName, columns);
         map.put("updateSql",updateSql);
 
         map.put("idSql","id = #{id}");
 
-
         String filePath = xmlFilePath+entityName+"Mapper.xml";
-
-
         templateConfig(map,xmlFtlPath,filePath);
     }
+
     /*
         dao层接口生成
      */
@@ -320,8 +316,6 @@ public class testGenerator {
 
     public List<String> insertStringGenerate(String paramName, List<Column> columns){
 
-
-
         StringBuilder firstHalfSql = new StringBuilder();
         for (Column column: columns
         ) {
@@ -397,24 +391,13 @@ public class testGenerator {
                         .append("\t")
                         .append("\t")
                         .append("\t")
-                        .append("<if test=\"")
-                        .append(columnName).append(" != null and ")
-                        .append(columnName)
-                        .append(" != ''\">").append("\n")
-                        .append("\t")
-                        .append("\t")
-                        .append("\t")
-                        .append("\t")
-                        .append("\t")
                         .append(" #{")
-                        .append("item.")
-                        .append(columnName).append("},").append("\n")
-
+                        .append(columnName)
+                        .append("},")
                         .append("\t")
                         .append("\t")
                         .append("\t")
                         .append("\t")
-                        .append("</if>")
                         .append("\n");
             }else {
                 lowerHalfSql.append("\t")
@@ -449,9 +432,110 @@ public class testGenerator {
             }
         }
 
+        StringBuilder batchFirstHalfSql = new StringBuilder();
+        for (Column column: columns
+        ) {
+            String columnName = column.getColumn_name();
+            if(columnName.equals("id") ||columnName.equals("mtime") || columnName.equals("update_time")) continue;
+            if (column.getColumn_type().equals("String")){
+                batchFirstHalfSql
+                        .append("\t")
+                        .append("\t")
+                        .append("\t")
+                        .append("\t")
+                        .append(columnName)
+                        .append(",")
+                        .append("\t")
+                        .append("\t")
+                        .append("\t")
+                        .append("\t")
+                        .append("\n");
+            }else {
+                batchFirstHalfSql
+                        .append("\t")
+                        .append("\t")
+                        .append("\t")
+                        .append("\t");
+                if(columnName.equals("create_time") || columnName.equals("update_time")
+                        || columnName.equals("atime") || columnName.equals("mtime")){
+                    batchFirstHalfSql
+                            .append("\t")
+                            .append(columnName)
+                            .append(",")
+                            .append("\n");
+                }else {
+                    batchFirstHalfSql
+                            .append(columnName).append(",")
+                            .append("\t")
+                            .append("\t")
+                            .append("\t")
+                            .append("\t")
+                            .append("\n");
+                }
+            }
+                            batchFirstHalfSql
+                                .append("\n");
+        }
+
+        StringBuilder batchLowerHalfSql = new StringBuilder();
+        for (Column column: columns
+        ) {
+            String columnName = column.getColumn_name();
+            if(columnName.equals("id") ||columnName.equals("mtime") || columnName.equals("update_time")) continue;
+            if (columnName.equals("String")){
+                batchLowerHalfSql
+                        .append("\t")
+                        .append("\t")
+                        .append("\t")
+                        .append("\t")
+                        .append("<if test=\"")
+                        .append(columnName).append(" != null and ")
+                        .append(columnName)
+                        .append(" != ''\">").append("\n")
+                        .append("\t")
+                        .append("\t")
+                        .append("\t")
+                        .append("\t")
+                        .append("\t")
+                        .append(" #{")
+                        .append("item.")
+                        .append(columnName).append("},").append("\n")
+
+                        .append("\t")
+                        .append("\t")
+                        .append("\t")
+                        .append("\t")
+                        .append("</if>")
+                        .append("\n");
+            }else {
+                batchLowerHalfSql.append("\t")
+                        .append("\t")
+                        .append("\t")
+                        .append("\t");
+                if(columnName.equals("create_time") || columnName.equals("update_time")
+                        || columnName.equals("atime") || columnName.equals("mtime")){
+                    batchLowerHalfSql
+                            .append("\t")
+                            .append("now(),");
+                }else {
+                    batchLowerHalfSql
+                            .append(" #{")
+                            .append(column.getColumn_name()).append("},").append("\n")
+                            .append("\t")
+                            .append("\t")
+                            .append("\t")
+                            .append("\t");
+                }
+                batchLowerHalfSql
+                        .append("\n");
+            }
+        }
+
         List<String> list = new ArrayList<>();
         list.add(firstHalfSql.toString());
         list.add(lowerHalfSql.toString());
+        list.add(batchFirstHalfSql.toString());
+        list.add(batchLowerHalfSql.toString());
         return list;
     }
 

@@ -40,14 +40,12 @@ ${firstHalfSql}
         insert into
         ${tableName}
         (
-            ${firstHalfSql}
+            ${batchFirstHalfSql}
         )
         values
         <foreach collection="list" item="item" separator=",">
             (
-            <trim suffixOverrides=",">
-                ${lowerHalfSql}
-            </trim>
+                ${batchLowerHalfSql}
             )
         </foreach>
     </insert>

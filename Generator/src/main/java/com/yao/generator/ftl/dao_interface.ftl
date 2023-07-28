@@ -11,6 +11,8 @@ public interface ${entityName}Mapper {
 
     int insert(${entityName} ${camelCaseEntity});
 
+    List<${entityName}> insertList(List<${entityName}> ${camelCaseEntity});
+
     int update(${entityName} ${camelCaseEntity});
 
     int delete(String id);

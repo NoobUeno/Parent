@@ -11,6 +11,8 @@ public interface NodeInfoMapper {
 
     int insert(NodeInfo nodeInfo);
 
+    List<NodeInfo> insertList(List<NodeInfo> nodeInfo);
+
     int update(NodeInfo nodeInfo);
 
     int delete(String id);
