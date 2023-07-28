@@ -36,7 +36,7 @@ ${firstHalfSql}
             )
     </insert>
 
-    <insert id="insertList" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insertList" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.List">
         insert into
         ${tableName}
         (
