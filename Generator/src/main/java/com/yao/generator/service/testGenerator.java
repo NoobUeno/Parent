@@ -407,8 +407,8 @@ public class testGenerator {
                 if(columnName.equals("create_time") || columnName.equals("update_time")
                         || columnName.equals("atime") || columnName.equals("mtime")){
                     lowerHalfSql
-                            .append("\t")
-                            .append("now(),");
+                            .append("now(),")
+                            .append("\n");
                 }else {
                     lowerHalfSql
                             .append("<if test=\"")
@@ -456,8 +456,8 @@ public class testGenerator {
                         .append("\t")
                         .append("\t")
                         .append("\t");
-                if(columnName.equals("create_time") || columnName.equals("update_time")
-                        || columnName.equals("atime") || columnName.equals("mtime")){
+                if(columnName.equals("create_time")
+                        || columnName.equals("atime")){
                     batchFirstHalfSql
                             .append("\t")
                             .append(columnName)
@@ -512,11 +512,11 @@ public class testGenerator {
                         .append("\t")
                         .append("\t")
                         .append("\t");
-                if(columnName.equals("create_time") || columnName.equals("update_time")
-                        || columnName.equals("atime") || columnName.equals("mtime")){
+                if(columnName.equals("create_time")
+                        || columnName.equals("atime")){
                     batchLowerHalfSql
-                            .append("\t")
-                            .append("now(),");
+                            .append("now(),")
+                            .append("\n");
                 }else {
                     batchLowerHalfSql
                             .append(" #{")
@@ -567,7 +567,6 @@ public class testGenerator {
                         .append(columnName)
                         .append(" = #{")
                         .append(column.getColumn_name()).append("},")
-
                         .append("\n")
                         .append("\t")
                         .append("\t")
@@ -579,32 +578,33 @@ public class testGenerator {
                 sb.append("\t")
                         .append("\t")
                         .append("\t")
-                        .append("\t")
-                        .append("<if test=\"")
-                        .append(column.getColumn_name()).append(" != null\">")
-                        .append("\n")
-                        .append("\t")
-                        .append("\t")
-                        .append("\t")
-                        .append("\t")
-                        .append("\t")
-                        .append(column.getColumn_name());
+                        .append("\t");
                 if (columnName.equals("mtime") || columnName.equals("update_time") ) {
                     sb
+                            .append("\t")
+                            .append(columnName)
                             .append(" = now(),");
-                }else
-                {
-                sb
-                        .append(" = #{")
-                        .append(column.getColumn_name()).append("},");
+                }else {
+                    sb
+                            .append("<if test=\"")
+                            .append(column.getColumn_name()).append(" != null\">")
+                            .append("\n")
+                            .append("\t")
+                            .append("\t")
+                            .append("\t")
+                            .append("\t")
+                            .append("\t")
+                            .append(column.getColumn_name())
+                            .append(" = #{")
+                            .append(column.getColumn_name()).append("},")
+                            .append("\n")
+                            .append("\t")
+                            .append("\t")
+                            .append("\t")
+                            .append("\t")
+                            .append("</if>");
                 }
                 sb
-                        .append("\n")
-                        .append("\t")
-                        .append("\t")
-                        .append("\t")
-                        .append("\t")
-                        .append("</if>")
                         .append("\n");
             }
         }

@@ -78,8 +78,8 @@ public class test {
     public void f4() throws TemplateException, IOException {
         try {
             HashMap<String, String> map = new HashMap<>();
-            map.put("entityName","NodeInfo");
-            map.put("tableName","iot_node_info");
+            map.put("entityName","FaceDataUser");
+            map.put("tableName","facedata_user");
 //            testGenerator.entity(map);
 //            testGenerator.xml(map);
             testGenerator.start(map);
